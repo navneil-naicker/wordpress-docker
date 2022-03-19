@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  db:
+    container_name: db
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+    restart: always
+    image: mariadb:latest
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - docker.local
+    ports:
+      - '3306:3306'
+  web:
+    container_name: web
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: root
+    restart: always
+    volumes: ['./:/var/www/html']
+    networks:
+      - docker.local
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      - '8090:80'
+networks:
+  docker.local:
+volumes:
+  db_data:
