@@ -1,4 +1,4 @@
-Place the file docker-compose.yaml in directory and run
+Place the file `docker-compose.yaml `in directory and run
 
 `docker compose -p MyWpProject up -d`
 
